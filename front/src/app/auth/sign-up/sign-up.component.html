@@ -6,10 +6,20 @@
       <input type="text" formControlName="name" placeholder="Name" />
       <input type="text" formControlName="last_name" placeholder="Last Name" />
       <input type="email" formControlName="email" placeholder="Email" />
+      
       <input type="password" formControlName="password" placeholder="Password" />
+      <div *ngIf="signUpForm.get('password')?.touched && signUpForm.get('password')?.errors?.['weakPassword']" class="error-message">
+        Password must contain at least:
+        <ul style="text-align: left; margin-top: 0.5rem;">
+          <li>1 lowercase letter</li>
+          <li>1 uppercase letter</li>
+          <li>1 number</li>
+          <li>1 special character (&#64;$!%*?&)</li>
+          <li>Minimum 8 characters</li>
+        </ul>
+      </div>
       <button type="submit">Register</button>
     </form>
-
     <p class="login-link">Already have an account? <a routerLink="/sign-in">Login</a></p>
   </div>
 </div>

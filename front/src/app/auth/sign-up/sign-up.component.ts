@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -30,8 +30,7 @@ export class SignUpComponent implements OnInit {
       name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      profile_image_url: ['']
+      password: ['', [Validators.required, strongPasswordValidator()]],
     });
   }
 
@@ -54,4 +53,13 @@ export class SignUpComponent implements OnInit {
       }
     });
   }
+}
+
+function strongPasswordValidator() {
+  const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    if (!value) return null;
+    return pattern.test(value) ? null : { weakPassword: true };
+  };
 }

@@ -1,0 +1,81 @@
+.background {
+  background-image: url('/assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Contenedor translúcido */
+.initial-container {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem 2.5rem;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+/* Logo grande */
+.logo {
+  width: 300px;
+  margin-bottom: 1rem;
+}
+
+/* Textos */
+.tagline {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Botón */
+button {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #4b0082;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #dddddd;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .initial-container {
+    padding: 1.5rem;
+  }
+
+  .logo {
+    width: 200px;
+  }
+
+  .tagline {
+    font-size: 1.2rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+}

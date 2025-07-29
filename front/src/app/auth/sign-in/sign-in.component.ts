@@ -2,23 +2,24 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, HttpClientModule],
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent {
   signInForm: FormGroup;
+  errorMessage = '';
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router
+  ) {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -33,19 +34,17 @@ export class SignInComponent {
 
     const { email, password } = this.signInForm.value;
 
-    this.http.get<any[]>('http://localhost:5000/users/').subscribe({
-      next: (users) => {
-        const user = users.find(u => u.email === email && u.password === password);
-        if (user) {
-          alert('Login successful!');
-          this.router.navigate(['/home']);
-        } else {
-          alert('Invalid credentials');
-        }
+    this.http.post<any>('http://localhost:5000/users/login', { email, password }).subscribe({
+      next: (res) => {
+        // Guardar token y datos del usuario en localStorage
+        localStorage.setItem('access_token', res.access_token);
+        localStorage.setItem('user', JSON.stringify(res.user));
+
+        this.signInForm.reset();
+        this.router.navigate(['/home']);
       },
-      error: (error) => {
-        console.error('Login error:', error);
-        alert('Login failed. Try again.');
+      error: (err) => {
+        this.errorMessage = err.error?.error || 'Login failed. Please try again.';
       }
     });
   }

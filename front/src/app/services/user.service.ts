@@ -11,7 +11,8 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/`);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return this.http.get<any[]>(`${this.apiUrl}/`, { headers });
   }
 
   createUser(userData: any): Observable<any> {
@@ -19,14 +20,32 @@ export class UserService {
   }
 
   deleteUser(userId: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${userId}`);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return this.http.delete<any>(`${this.apiUrl}/${userId}`, { headers });
   }
 
   updateUser(userId: string, data: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${userId}`, data);
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return this.http.put<any>(`${this.apiUrl}/${userId}`, data, { headers });
   }
 
   loginUser(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials);
+    return new Observable(observer => {
+      this.http.post<any>(`${this.apiUrl}/login`, credentials).subscribe({
+        next: (response) => {
+          localStorage.setItem('token', response.access_token);
+          observer.next(response);
+          observer.complete();
+        },
+        error: (error) => {
+          observer.error(error);
+        }
+      });
+    });
+  }
+
+  getLoggedUser(): Observable<any> {
+    const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+    return this.http.get<any>(`${this.apiUrl}/me`, { headers });
   }
 }

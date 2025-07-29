@@ -1,0 +1,10 @@
+<div class="movie-info-container" *ngIf="movie">
+  <img [src]="movie.Poster !== 'N/A' ? movie.Poster : 'assets/placeholder.png'" alt="Movie Poster" />
+  <h1>{{ movie.Title }}</h1>
+  <p><strong>Year:</strong> {{ movie.Year }}</p>
+  <p><strong>Genre:</strong> {{ movie.Genre }}</p>
+  <p><strong>Director:</strong> {{ movie.Director }}</p>
+  <p><strong>Plot:</strong> {{ movie.Plot }}</p>
+  <p><strong>Runtime:</strong> {{ movie.Runtime }}</p>
+  <p><strong>IMDB Rating:</strong> {{ movie.imdbRating }}</p>
+</div>

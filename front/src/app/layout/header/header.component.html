@@ -1,0 +1,24 @@
+<header class="header-container">
+  <div class="logo">Flixsy</div>
+
+  <form #searchContainer (submit)="onSearch()" class="search-form">
+    <input
+      type="text"
+      placeholder="Search movies..."
+      [(ngModel)]="searchTerm"
+      name="search"
+      class="search-input"
+    />
+    <button type="submit" class="search-button">🔍</button>
+
+    <div class="search-results" *ngIf="showResults && searchResults.length > 0">
+      <div
+        class="result-item"
+        *ngFor="let movie of searchResults"
+        (click)="goToMovie(movie.imdbID)"
+      >
+        {{ movie.Title }} ({{ movie.Year }})
+      </div>
+    </div>
+  </form>
+</header>

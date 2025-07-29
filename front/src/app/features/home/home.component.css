@@ -1,0 +1,73 @@
+.home-container {
+  background-color: #141414;
+  color: #e5e5e5;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 20px;
+}
+
+.genre-section {
+  margin-bottom: 40px;
+}
+
+.genre-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+.movie-row {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 12px;
+  padding-left: 10px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.movie-row:hover {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
+}
+
+.movie-row::-webkit-scrollbar {
+  height: 6px;
+  background: transparent;
+}
+
+.movie-row::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.movie-row::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.movie-row:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.movie-card {
+  flex: 0 0 auto;
+  width: 150px;
+  transition: transform 0.2s;
+}
+
+.movie-card img {
+  width: 100%;
+  border-radius: 6px;
+  height: auto;
+  object-fit: cover;
+}
+
+.movie-card p {
+  font-size: 14px;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+}

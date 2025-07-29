@@ -6,23 +6,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MovieService {
-  private apiUrl = 'http://localhost:5000/movies';
+  private readonly apiKey = '5b59bc7a';
+  private readonly apiUrl = 'https://www.omdbapi.com/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
-  getMovies(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/`);
+  searchMovie(titulo: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}?apikey=${this.apiKey}&s=${titulo}`);
   }
 
-  createMovie(movieData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/`, movieData);
+  ObtainDetails(imdbID: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}?apikey=${this.apiKey}&i=${imdbID}`);
   }
 
-  deleteMovie(movieId: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${movieId}`);
-  }
-
-  updateMovie(movieId: string, data: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${movieId}`, data);
+  getMoviesByGenre(genre: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}?apikey=${this.apiKey}&s=${genre}`);
   }
 }

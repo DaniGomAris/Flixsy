@@ -1,0 +1,17 @@
+<app-header></app-header>
+<div class="home-container">
+  <div *ngFor="let genre of genres" class="genre-section">
+    <h2 class="genre-title">{{ genre }}</h2>
+    <div class="movie-row">
+      <div
+        class="movie-card"
+        *ngFor="let movie of moviesByGenre[genre]"
+        (click)="goToMovie(movie.imdbID)"
+        style="cursor: pointer"
+      >
+        <img [src]="movie.Poster" (error)="movie.Poster = 'assets/default-poster.png'" alt="{{ movie.Title }}" />
+        <p>{{ movie.Title }}</p>
+      </div>
+    </div>
+  </div>
+</div>
